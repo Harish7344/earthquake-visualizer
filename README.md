@@ -1,70 +1,134 @@
-# Getting Started with Create React App
+# Earthquake Data Map
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a React-based web application that visualizes earthquake data on an interactive map. The map uses Leaflet.js to display earthquake markers based on their magnitude, and it includes filters to allow users to adjust the range of magnitudes displayed. It also features a dark mode toggle for improved accessibility in low-light environments.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Interactive Map**: Displays earthquake data on a Leaflet map.
+- **Magnitude Filter**: Users can filter earthquakes by their magnitude (between 0 and 10).
+- **Dark Mode**: A toggle to switch between light and dark themes.
+- **Legend**: A visual legend showing earthquake magnitude ranges.
+- **Popup Information**: Each earthquake marker includes a popup with additional details like location, magnitude, and time.
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **React**: A JavaScript library for building user interfaces.
+- **Leaflet**: A leading open-source JavaScript library for mobile-friendly interactive maps.
+- **Axios**: A promise-based HTTP client for the browser to fetch earthquake data from the USGS API.
+- **CSS**: Styling to enhance the user experience.
+- **React-Leaflet**: A React wrapper for Leaflet.js to easily integrate maps into a React project.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation
 
-### `npm test`
+1. Clone the repository:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   ```bash
+   git clone https://github.com/Harish7344/earthquake-visualizer.git
+   ```
 
-### `npm run build`
+2. Navigate to the project directory:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ```bash
+   cd earthquake-map
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Install dependencies:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```bash
+   npm install
+   ```
 
-### `npm run eject`
+4. Start the development server:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```bash
+   npm start
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+5. Open the app in your browser at `http://localhost:3000`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Folder Structure
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+/src
+  /components
+    EarthquakeMap.js   # Map component that displays the earthquake markers
+    Filter.js          # Filter component for selecting magnitude ranges
+  /utils
+    fetchEarthquakeData.js  # Utility for fetching earthquake data from USGS API
+  App.js               # Main app component that ties everything together
+  index.js             # Entry point for the React app
+  App.css              # Main styling for the app
+  index.css            # Global styles
+```
 
-## Learn More
+## Components
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### `EarthquakeMap.js`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This component renders the interactive map using React-Leaflet. It fetches earthquake data from the USGS API and displays markers for each earthquake, with custom icons based on magnitude. It also includes popups showing more information about each earthquake.
 
-### Code Splitting
+- **Props**:
+  - `minMagnitude`: The minimum magnitude for filtering the earthquakes.
+  - `maxMagnitude`: The maximum magnitude for filtering the earthquakes.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### `Filter.js`
 
-### Analyzing the Bundle Size
+This component provides inputs for the user to set the minimum and maximum magnitude values. When these values change, it updates the parent component (`App.js`) to filter the earthquakes displayed on the map.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **Props**:
+  - `minMagnitude`: The current minimum magnitude value.
+  - `maxMagnitude`: The current maximum magnitude value.
+  - `setMinMagnitude`: Function to update the minimum magnitude value.
+  - `setMaxMagnitude`: Function to update the maximum magnitude value.
 
-### Making a Progressive Web App
+### `fetchEarthquakeData.js`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+This utility fetches earthquake data from the USGS Earthquake API (`https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson`) and returns the data in a usable format for the application.
 
-### Advanced Configuration
+## Styling
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- The app includes basic styling to make the map and components look visually appealing.
+- The `dark-mode` class is toggled on the body element when the dark mode button is clicked.
+- The magnitude legend is displayed below the map to indicate the visual representation of different magnitudes on the map.
 
-### Deployment
+### Dark Mode Styling
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+When dark mode is enabled, the app switches to a darker color scheme for better visibility in low-light conditions.
 
-### `npm run build` fails to minify
+## Example Usage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. **Adjusting Magnitude Filters**: Users can change the `Min Magnitude` and `Max Magnitude` input fields to filter earthquakes that fall within the specified range.
+2. **Viewing Earthquake Data**: Click on any earthquake marker on the map to view more details in the popup, such as the location, magnitude, and time of the earthquake.
+3. **Toggling Dark Mode**: Use the "Toggle Dark Mode" button to switch between light and dark themes.
+
+## Legend
+
+The app includes a color legend indicating the severity of earthquakes based on their magnitude:
+
+- **Magnitude 1-2**: Light earthquakes, represented by a light red color.
+- **Magnitude 2-4**: Moderate earthquakes, represented by a medium red color.
+- **Magnitude 4-6**: Strong earthquakes, represented by a stronger red color.
+- **Magnitude 6-8**: Very strong earthquakes, represented by a darker red color.
+- **Magnitude 8+**: Major earthquakes, represented by a bright red color.
+
+## Dependencies
+
+- `react`: ^18.2.0
+- `react-dom`: ^18.2.0
+- `react-leaflet`: ^4.0.0
+- `leaflet`: ^1.9.3
+- `axios`: ^1.2.0
+
+## Contributing
+
+If you want to contribute to this project, feel free to fork the repository and submit a pull request. Please make sure your changes are well-tested and that the app works as expected before submitting.
+
+### Issues
+
+If you encounter any bugs or have feature requests, please open an issue on the GitHub repository.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
